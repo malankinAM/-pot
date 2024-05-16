@@ -1,0 +1,64 @@
+$soup-pot-size: 164px;
+$soup-pot-svg: '<svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1366 768"><defs></defs><title>Artboard 1</title><g id="Pot" fill="blue"><path class="cls-1" d="M1223.28,169.27H1096.94v-70H261.7v70H143.15a37.72,37.72,0,0,0,0,75.45H261.7V572.07c0,54.07,44.23,98.29,98.29,98.29H916.31V223.16h68.53V670.37h13.8c54.06,0,98.29-44.23,98.29-98.29V244.72h126.34a37.72,37.72,0,0,0,0-75.45"/></g></svg>';
+$soup-pot-empty-bg: #CCC;
+$soup-pot-full-bg: #004071;
+
+@function svg-url($svg) {
+	@return url("data:image/svg+xml;utf8,#{$svg}");
+}
+
+@keyframes load {
+  0% {
+    background-position: 50% 0%;
+    width: 0;
+    height: 0;
+    opacity: 0;
+  }
+  25% {
+    opacity: 1;
+  }
+  40% {
+    width: $soup-pot-size;
+    height: $soup-pot-size;
+  }
+  50% {
+    transform: translate(-50%,-50%);
+    left: 50%;
+    opacity: 1;
+  }
+  100% {
+    transform: translate(100%,-50%);
+    background-position: 50% 100%;
+    left: 100%;
+    opacity: 0;
+  }
+}
+.soup-pot-loader {
+  ///border: 1px solid red;
+  //width: 600px;
+  height: 600px;
+  position: relative;
+  overflow: hidden;
+  &-pot {
+    background: linear-gradient(180deg, $soup-pot-empty-bg 50%, $soup-pot-full-bg 50%);
+    background-size: 400% 400%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+    width: $soup-pot-size;
+    height: $soup-pot-size;
+  
+    -webkit-mask-image: svg-url($soup-pot-svg);
+    -webkit-mask-size: 100%;
+    -webkit-mask-position: 0px 50%;
+    -webkit-mask-repeat: no-repeat;
+
+    mask-image: svg-url($soup-pot-svg);
+    mask-size: 100%;
+    mask-position: 0px 50%;
+    mask-repeat: no-repeat;
+    animation: load 2s ease infinite;  
+  }
+}
+
